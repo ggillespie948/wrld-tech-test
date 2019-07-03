@@ -10,12 +10,14 @@ namespace WrldTechTest.KDimensionTree
         public KDNode RightNode { get; set; }
         public Feature Feature { get; set; }
         public bool IsLeaf { get; set; }
+        public bool UseXAxis { get; set; }
 
-        public KDNode(Feature feature)
+        public KDNode(Feature feature, bool useXAxis)
         {
             Feature = feature;
             RightNode = null;
             LeftNode = null;
+            UseXAxis = useXAxis;
         }
     }
 }
