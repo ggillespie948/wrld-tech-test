@@ -108,5 +108,74 @@ namespace WrldTechTest.KDimensionTree
             return root;
         }
 
+
+        public double FindDistanceToNearestNeighbour(KDNode currentNode, Feature goalFeature, KDNode closestNeighbour, double closestNeighbourDistance)
+        {
+            if (currentNode == null)
+            {
+                return closestNeighbourDistance;
+            }
+
+            var currentDistance = FeatureHelper.GetDistance(currentNode.Feature, goalFeature);
+
+            // if n.distance  (goal) < best.distance(goal), best = n
+            if (currentDistance < closestNeighbourDistance)
+            {
+                if (currentNode.Feature != goalFeature)
+                {
+                    closestNeighbour = currentNode;
+                    closestNeighbourDistance = currentDistance;
+                }
+            }
+
+            // if goal (comparitor) < n.comparitor
+            if (currentNode.UseXAxis) //Traverse using X axis
+            {
+                if (goalFeature.X < currentNode.Feature.X) //is goal.x LEFT current node.x? IF so, traverse LEFT, otherwise go RIGHT (easy to understand because this is X comparison node)
+                {
+                    //traverse left
+                    closestNeighbourDistance = FindDistanceToNearestNeighbour(currentNode.LeftNode, goalFeature, closestNeighbour, closestNeighbourDistance);
+
+                    //should we traverse right?
+                    if(Math.Abs(currentNode.Feature.X - goalFeature.X) < closestNeighbourDistance)
+                        closestNeighbourDistance = FindDistanceToNearestNeighbour(currentNode.RightNode, goalFeature, closestNeighbour, closestNeighbourDistance);
+                }
+                else
+                {
+                    //traverse right
+                    closestNeighbourDistance = FindDistanceToNearestNeighbour(currentNode.RightNode, goalFeature, closestNeighbour, closestNeighbourDistance);
+
+
+                    //should we traverse left?
+                    if (Math.Abs(goalFeature.Y - currentNode.Feature.Y) < closestNeighbourDistance)
+                        closestNeighbourDistance = FindDistanceToNearestNeighbour(currentNode.LeftNode, goalFeature, closestNeighbour, closestNeighbourDistance);
+                }
+
+            }
+            else // Traverse using Y axis
+            {
+                if (goalFeature.Y > currentNode.Feature.Y) //is goal.y ABOVE current node.y? IF so, traverse to RIGHT to go ABOVE (because this is a Y comparison node) otherwise go left to look down 
+                {
+                    //traverse up
+                    closestNeighbourDistance = FindDistanceToNearestNeighbour(currentNode.RightNode, goalFeature, closestNeighbour, closestNeighbourDistance);
+
+                    //should we traverse down?
+                    if (Math.Abs(currentNode.Feature.Y - goalFeature.Y) < closestNeighbourDistance)
+                        closestNeighbourDistance = FindDistanceToNearestNeighbour(currentNode.LeftNode, goalFeature, closestNeighbour, closestNeighbourDistance);
+                }
+                else
+                {
+                    //traverse down
+                    closestNeighbourDistance = FindDistanceToNearestNeighbour(currentNode.LeftNode, goalFeature, closestNeighbour, closestNeighbourDistance);
+
+                    //should we traverse up?
+                    if (Math.Abs(goalFeature.X - currentNode.Feature.X) < closestNeighbourDistance)
+                        closestNeighbourDistance = FindDistanceToNearestNeighbour(currentNode.RightNode, goalFeature, closestNeighbour, closestNeighbourDistance);
+                }
+            }
+
+            return closestNeighbourDistance;
+        }
+
     }
 }
