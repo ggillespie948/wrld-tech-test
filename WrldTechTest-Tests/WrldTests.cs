@@ -16,5 +16,11 @@ namespace WrldTechTest_Tests
             Assert.Equal(7, featuresSmall.Count);
             Assert.Equal(100001, featuresBig.Count);
         }
+
+        [Fact]
+        public void Build_KD_Tree_Works_As_Expected()
+        {
+
+        }
     }
 }
