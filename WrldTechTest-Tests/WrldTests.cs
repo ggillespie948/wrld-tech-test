@@ -28,7 +28,7 @@ namespace WrldTechTest_Tests
             features.Add(new Feature("placeC", 1, 3));
 
             var tree = new KDTree();
-            tree.BuildTree(tree.Root, features);
+            tree.BuildTree(tree.Root, features, true);
 
             Assert.Equal(3, tree.Count);
         }
