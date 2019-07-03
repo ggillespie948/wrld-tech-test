@@ -5,4 +5,22 @@
     <TargetFramework>netcoreapp2.2</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <None Remove="problem_big.txt" />
+    <None Remove="problem_small.txt" />
+    <None Remove="problem_statement.txt" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="problem_big.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="problem_small.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="problem_statement.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
 </Project>
