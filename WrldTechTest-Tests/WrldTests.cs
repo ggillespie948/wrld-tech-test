@@ -1,5 +1,7 @@
 using System;
+using System.Collections.Generic;
 using WrldTechTest;
+using WrldTechTest.KDimensionTree;
 using Xunit;
 
 namespace WrldTechTest_Tests
@@ -20,7 +22,15 @@ namespace WrldTechTest_Tests
         [Fact]
         public void Build_KD_Tree_Works_As_Expected()
         {
+            var features = new List<Feature>();
+            features.Add(new Feature("placeA", 1, 1));
+            features.Add(new Feature("placeB", 1, 2));
+            features.Add(new Feature("placeC", 1, 3));
 
+            var tree = new KDTree();
+            tree.BuildTree(tree.Root, features);
+
+            Assert.Equal(3, tree.Count);
         }
     }
 }
