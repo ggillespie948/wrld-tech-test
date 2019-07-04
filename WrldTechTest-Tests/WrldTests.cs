@@ -35,7 +35,7 @@ namespace WrldTechTest_Tests
         }
 
         [Fact]
-        public void Find_Most_Isolated_Point_Works_As_Expected()
+        public void Find_Most_Isolated_Point_Works_As_Expected_Small_Sample()
         {
             FileReader reader = new FileReader();
             var features = reader.ParseFeaturesFromFile("problem_small.txt");
@@ -48,6 +48,7 @@ namespace WrldTechTest_Tests
 
             for (int i = 0; i < tree.Nodes.Count; i++)
             {
+                //var nearestParentNode = tree.Nodes[i].
                 var shortestNDistanceToNN = tree.FindDistanceToNearestNeighbour(tree.Root, tree.Nodes[i].Feature, null, double.MaxValue);
 
                 if (shortestNDistanceToNN > mostIsolatedNodeShortestNDistance)
@@ -58,6 +59,33 @@ namespace WrldTechTest_Tests
             }
 
             Assert.Equal("place6", mostIsolatedNode.Feature.Name);
+        }
+
+        [Fact]
+        public void Find_Most_Isolated_Point_Works_As_Expected_Big_Sample()
+        {
+            FileReader reader = new FileReader();
+            var features = reader.ParseFeaturesFromFile("problem_big.txt");
+
+            var tree = new KDTree();
+            tree.BuildTree(tree.Root, features, true);
+
+            KDNode mostIsolatedNode = null;
+            var mostIsolatedNodeShortestNDistance = 0.00;
+
+            for (int i = 0; i < tree.Nodes.Count; i++)
+            {
+                //var nearestParentNode = tree.Nodes[i].
+                var shortestNDistanceToNN = tree.FindDistanceToNearestNeighbour(tree.Root, tree.Nodes[i].Feature, null, double.MaxValue);
+
+                if (shortestNDistanceToNN > mostIsolatedNodeShortestNDistance)
+                {
+                    mostIsolatedNode = tree.Nodes[i];
+                    mostIsolatedNodeShortestNDistance = shortestNDistanceToNN;
+                }
+            }
+
+            Assert.Equal("place55163", mostIsolatedNode.Feature.Name);
         }
     
     }
