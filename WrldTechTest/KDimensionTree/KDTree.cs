@@ -147,7 +147,7 @@ namespace WrldTechTest.KDimensionTree
 
 
                     //should we traverse left?
-                    if (Math.Abs(goalFeature.Y - currentNode.Feature.Y) < closestNeighbourDistance)
+                    if (Math.Abs(goalFeature.X - currentNode.Feature.X) < closestNeighbourDistance)
                         closestNeighbourDistance = FindDistanceToNearestNeighbour(currentNode.LeftNode, goalFeature, closestNeighbour, closestNeighbourDistance);
                 }
 
@@ -169,7 +169,7 @@ namespace WrldTechTest.KDimensionTree
                     closestNeighbourDistance = FindDistanceToNearestNeighbour(currentNode.LeftNode, goalFeature, closestNeighbour, closestNeighbourDistance);
 
                     //should we traverse up?
-                    if (Math.Abs(goalFeature.X - currentNode.Feature.X) < closestNeighbourDistance)
+                    if (Math.Abs(goalFeature.Y - currentNode.Feature.Y) < closestNeighbourDistance)
                         closestNeighbourDistance = FindDistanceToNearestNeighbour(currentNode.RightNode, goalFeature, closestNeighbour, closestNeighbourDistance);
                 }
             }
