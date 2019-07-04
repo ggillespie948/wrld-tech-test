@@ -177,5 +177,24 @@ namespace WrldTechTest.KDimensionTree
             return closestNeighbourDistance;
         }
 
+        public KDNode FindMostIsolatedNode()
+        {
+            KDNode mostIsolatedNode = null;
+            var mostIsolatedNodeShortestNDistance = 0.00;
+
+            for (int i = 0; i < Nodes.Count; i++)
+            {
+                var shortestNDistanceToNN = FindDistanceToNearestNeighbour(Root, Nodes[i].Feature, null, double.MaxValue);
+
+                if (shortestNDistanceToNN > mostIsolatedNodeShortestNDistance)
+                {
+                    mostIsolatedNode = Nodes[i];
+                    mostIsolatedNodeShortestNDistance = shortestNDistanceToNN;
+                }
+            }
+
+            return mostIsolatedNode;
+        }
+
     }
 }
